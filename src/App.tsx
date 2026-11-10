@@ -26,7 +26,7 @@ const materials: Material[] = [
     id: "plastic",
     name: "Botol plastik PET",
     category: "Plastik",
-    price: 3500,
+    price: 3000,
     unit: "kg",
     examples: "Botol air mineral dan kemasan minuman PET.",
     prep: "Kosongkan, keringkan, lalu pisahkan tutup dan label bila memungkinkan.",
@@ -39,7 +39,7 @@ const materials: Material[] = [
     id: "cardboard",
     name: "Kardus bekas",
     category: "Kertas",
-    price: 2000,
+    price: 1500,
     unit: "kg",
     examples: "Kardus paket, dus kemasan, dan lembaran karton bergelombang.",
     prep: "Lipat, ikat, dan simpan dalam keadaan kering.",
@@ -52,7 +52,7 @@ const materials: Material[] = [
     id: "aluminum",
     name: "Aluminium",
     category: "Logam",
-    price: 14000,
+    price: 28000,
     unit: "kg",
     examples: "Kaleng aluminium, potongan kusen, dan peralatan aluminium rusak.",
     prep: "Pisahkan komponen besi, karet, dan plastik yang menempel.",
@@ -65,7 +65,7 @@ const materials: Material[] = [
     id: "copper",
     name: "Tembaga",
     category: "Logam",
-    price: 75000,
+    price: 180000,
     unit: "kg",
     examples: "Potongan pipa tembaga dan kabel tembaga yang sudah terpisah.",
     prep: "Pisahkan dari material lain. Jangan membakar kabel untuk melepas isolasi.",
@@ -100,6 +100,58 @@ const materials: Material[] = [
     icon: "monitor",
     color: "sage",
   },
+  {
+    id: "tin-cap-badak",
+    name: "Kaleng Cap Badak",
+    category: "Logam",
+    price: 20000,
+    unit: "kg",
+    examples: "Kaleng bekas Cap Badak dan kaleng logam sejenis.",
+    prep: "Kosongkan dan pisahkan dari plastik atau material lain.",
+    note: "Harga bergantung pada kebersihan dan jenis campuran logam.",
+    image: localImg("IMG_0057.jpg"),
+    icon: "metal",
+    color: "silver",
+  },
+  {
+    id: "battery",
+    name: "Aki bekas",
+    category: "Elektronik",
+    price: 15000,
+    unit: "kg",
+    examples: "Aki kendaraan dan aki timbal-asam bekas.",
+    prep: "Jangan dibongkar atau dibuang cairannya. Simpan tegak dan tanyakan cara penyerahan.",
+    note: "Material berbahaya wajib dikonfirmasi terlebih dahulu sebelum diserahkan.",
+    image: localImg("IMG_0064.jpg"),
+    icon: "monitor",
+    color: "sage",
+  },
+  {
+    id: "brass",
+    name: "Kuningan",
+    category: "Logam",
+    price: 100000,
+    unit: "kg",
+    examples: "Kran, fitting, dan potongan logam kuningan bekas.",
+    prep: "Pisahkan dari besi, plastik, dan material lain yang menempel.",
+    note: "Harga bergantung pada kemurnian dan campuran material.",
+    image: localImg("IMG_0048.jpg"),
+    icon: "metal",
+    color: "copper",
+  },
+  {
+    id: "cement",
+    name: "Semen",
+    category: "Lainnya",
+    price: 2500,
+    unit: "kg",
+    examples: "Sisa semen dan semen yang masih dalam kemasan.",
+    prep: "Simpan tetap kering dan pisahkan dari kemasan atau material lain.",
+    note: "Konfirmasi penerimaan dan kondisi semen terlebih dahulu.",
+    image: localImg("IMG_0058.jpg"),
+    icon: "box",
+    color: "sand",
+  },
 ];
 const categories: { label: string; icon: IconName }[] = [
   { label: "Semua material", icon: "recycle" },
@@ -107,8 +159,9 @@ const categories: { label: string; icon: IconName }[] = [
   { label: "Plastik", icon: "bottle" },
   { label: "Kertas", icon: "box" },
   { label: "Elektronik", icon: "monitor" },
+  { label: "Lainnya", icon: "box" },
 ];
-type Channel = "WhatsApp" | "Instagram" | "Facebook";
+type Channel = "WhatsApp" | "Instagram" | "Facebook" | "YouTube" | "TikTok";
 type EstimateRow = { id: number; material: string; weight: string };
 
 export default function App() {
@@ -172,12 +225,12 @@ export default function App() {
         : ""
       : name === "Instagram"
         ? business.instagramUrl
-        : business.facebookUrl;
-  const openContact = (
-    name: Channel,
-    material: Material | null = null,
-    withEstimate = false,
-  ) => {
+        : name === "Facebook"
+          ? business.facebookUrl
+          : name === "YouTube"
+            ? business.youtubeUrl
+            : business.tiktokUrl;
+  const openContact = (name: Channel, material: Material | null = null, withEstimate = false) => {
     setSelected(null);
     setContactMaterial(material);
     setIncludeEstimate(withEstimate);
@@ -434,7 +487,9 @@ export default function App() {
               </button>
               <span>
                 Tidak menemukan materialmu?{" "}
-                <button onClick={() => openContact("WhatsApp")}>Tanyakan dulu ke Slemania Rongsok ↗</button>
+                <button onClick={() => openContact("WhatsApp")}>
+                  Tanyakan dulu ke Slemania Rongsok ↗
+                </button>
               </span>
             </div>
           )}
@@ -644,7 +699,11 @@ export default function App() {
             <div className="contact-footnote">
               <Icon name="info" size={15} />
               <span>
-                {business.whatsapp || business.instagramUrl || business.facebookUrl
+                {business.whatsapp ||
+                business.instagramUrl ||
+                business.facebookUrl ||
+                business.youtubeUrl ||
+                business.tiktokUrl
                   ? "Konfirmasi material dan layanan langsung ke Slemania Rongsok."
                   : "Nomor dan akun resmi Slemania Rongsok belum dicantumkan."}
               </span>
@@ -666,6 +725,16 @@ export default function App() {
                 name: "Facebook" as Channel,
                 icon: "facebook" as IconName,
                 text: "Terhubung dengan Slemania Rongsok",
+              },
+              {
+                name: "YouTube" as Channel,
+                icon: "youtube" as IconName,
+                text: "Lihat video dan informasi terbaru",
+              },
+              {
+                name: "TikTok" as Channel,
+                icon: "tiktok" as IconName,
+                text: "Ikuti konten Slemania Rongsok",
               },
             ].map((c) => (
               <button
@@ -822,7 +891,11 @@ export default function App() {
                       ? "whatsapp"
                       : channel === "Instagram"
                         ? "instagram"
-                        : "facebook"
+                        : channel === "Facebook"
+                          ? "facebook"
+                          : channel === "YouTube"
+                            ? "youtube"
+                            : "tiktok"
                   }
                   size={28}
                 />
@@ -832,7 +905,8 @@ export default function App() {
               {contactUrl(channel) ? (
                 <>
                   <p>
-                    Kirim foto material dan lokasi agar Slemania Rongsok bisa membantu menilai rongsokanmu.
+                    Kirim foto material dan lokasi agar Slemania Rongsok bisa membantu menilai
+                    rongsokanmu.
                   </p>
                   {channel === "WhatsApp" && !canSendMessage ? (
                     <p className="unconfigured-note">

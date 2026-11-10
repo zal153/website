@@ -13,6 +13,8 @@ export type IconName =
   | "whatsapp"
   | "instagram"
   | "facebook"
+  | "youtube"
+  | "tiktok"
   | "plus"
   | "close"
   | "menu"
@@ -35,5 +37,5 @@ export type Material = {
   color: string;
 };
 
-export type Channel = "WhatsApp" | "Instagram" | "Facebook";
+export type Channel = "WhatsApp" | "Instagram" | "Facebook" | "YouTube" | "TikTok";
 export type EstimateRow = { id: number; material: string; weight: string };
