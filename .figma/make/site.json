@@ -1,0 +1,10 @@
+{
+  "description": "Promosikan dan jual barang bekas dengan mudah melalui katalog online yang membantu penjual menjangkau pembeli dan menemukan pemilik baru untuk barang mereka.",
+  "robots": {
+    "index": false
+  },
+  "accessibility": {
+    "addBypassLinks": false,
+    "ignoreReducedMotion": false
+  }
+}
