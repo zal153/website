@@ -155,6 +155,7 @@ const materials: Material[] = [
     color: "sand",
   },
 ];
+
 const categories: { label: string; icon: IconName }[] = [
   { label: "Semua material", icon: "recycle" },
   { label: "Logam", icon: "metal" },
@@ -163,6 +164,7 @@ const categories: { label: string; icon: IconName }[] = [
   { label: "Elektronik", icon: "monitor" },
   { label: "Lainnya", icon: "box" },
 ];
+
 type Channel = "WhatsApp" | "Instagram" | "Facebook" | "YouTube" | "TikTok";
 type EstimateRow = { id: number; material: string; weight: string };
 
