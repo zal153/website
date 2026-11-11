@@ -5,7 +5,9 @@ import { MaterialCard } from "./components/MaterialCard";
 import type { IconName, Material } from "./types";
 import { money } from "./utils/format";
 
-const localImg = (filename: string) => `/img/${filename}`;
+const publicAsset = (path: string) => `${import.meta.env.BASE_URL}${path}`;
+const localImg = (filename: string) => publicAsset(`img/${filename}`);
+const businessIcon = publicAsset("icon/WhatsApp Image 2026-11-10 at 08.36.07.jpeg");
 // Hero image: pakai foto terbaik besi/komponen (IMG_0049)
 const heroImg = localImg("IMG_0049.jpg");
 const materials: Material[] = [
@@ -259,7 +261,7 @@ export default function App() {
         <div className="shell header-inner">
           <a href="#" className="brand" aria-label="Slemania Rongsok, beranda">
             <img
-              src="/icon/WhatsApp Image 2026-11-10 at 08.36.07.jpeg"
+              src={businessIcon}
               alt="Slemania Rongsok"
               className="brand-logo-img"
             />
@@ -797,7 +799,7 @@ export default function App() {
       <footer className="shell footer">
         <a href="#" className="brand">
           <img
-            src="/icon/WhatsApp Image 2026-11-10 at 08.36.07.jpeg"
+            src={businessIcon}
             alt="Slemania Rongsok"
             className="brand-logo-img"
           />
